@@ -1,0 +1,17 @@
+First run 'grails create-cas-test-apps' which will build two apps for each configuration in testapps.config.groovy, e.g.
+
+~/workspace/testapps/spring-security-test/spring-security-cas-test-v12-1 - port 8081
+~/workspace/testapps/spring-security-test/spring-security-cas-test-v12-2 - port 8082
+
+Each app has a run.sh script that starts up on the correct port.
+
+cd into this directory (webtest/server) and unpack server.tar.gz. This is a trimmed-down Tomcat 6.0.24 configured to run on port 9090 and with no webapps. Copy the war into webapps and rename to cas.war. It's a regular CAS war with one small tweak in WEB-INF/spring-configuration/ticketGrantingTicketCookieGenerator.xml to change p:cookieSecure to "false" to allow non-ssl access to simplify testing.
+
+Run the CAS server with bin/startup.sh and the two test apps with their run.sh scripts.
+
+The test script is simple:
+	navigate to either app's secure controller (http://localhost:8081/spring-security-cas-test-v12-1/secure/admins or http://localhost:8082/spring-security-cas-test-v12-2/secure/admins) and login with admin/admin
+	navigate to the other server's secure controller and you should already be authenticated
+
+The CAS server is configured to authenticate a user if the password matches the username; the test apps create an 'admin' user in BootStrap.
+
