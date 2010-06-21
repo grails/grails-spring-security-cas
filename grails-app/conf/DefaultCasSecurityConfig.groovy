@@ -14,7 +14,7 @@
  */
 security {
 	cas {
-		loginUrl = null // must be set, e.g. 'http://localhost:8080/cas-server-webapp-3.3.4/login'
+		loginUri = null // must be set, e.g. '/login'
 		sendRenew = false
 		serviceUrl = null // must be set, e.g. 'http://localhost:8080/myapp/j_spring_cas_security_check'
 		serverUrlPrefix = null // must be set, e.g. 'http://localhost:9090/cas'
