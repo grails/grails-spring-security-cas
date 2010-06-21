@@ -145,9 +145,6 @@ class SpringSecurityCasGrailsPlugin {
 
 		casStatelessTicketCache(NullStatelessTicketCache)
 
-		// TODO remove when core plugin 0.2.1 is released
-		authenticationUserDetailsService(UserDetailsByNameServiceWrapper, ref('userDetailsService'))
-
 		casAuthenticationProvider(CasAuthenticationProvider) {
 			authenticationUserDetailsService = ref('authenticationUserDetailsService')
 			serviceProperties = ref('casServiceProperties')
