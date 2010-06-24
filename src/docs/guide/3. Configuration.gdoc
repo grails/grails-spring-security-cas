@@ -1,0 +1,25 @@
+There are a few configuration options for the CAS plugin.
+
+{note}
+All of these property overrides must be specified in @grails-app/conf/Config.groovy@ using the @grails.plugins.springsecurity@ suffix, for example
+{code}
+grails.plugins.springsecurity.cas.serverUrlPrefix =
+     'https://cas-server/cas'
+{code}
+{note}
+
+{table}
+*Name* | *Default* | *Meaning*
+cas.serverUrlPrefix | @null@, must be set | the 'root' of all CAS server URLs, e.g. @https://cas-server/cas@
+cas.loginUri | @null@, must be set | the login URI, relative to @cas.serverUrlPrefix@, e.g. @/login@
+cas.sendRenew | @false@ | if true, ticket validation will only succeed if it was issued from a login form, but will fail if it was issued from a single sign-on session. Analagous to @IS_AUTHENTICATED_FULLY@ in Spring Security
+cas.serviceUrl | @null@, must be set | the local application login URL, e.g. @http://localhost:8080/myapp/j_spring_cas_security_check@
+cas.key | 'grails-spring-security-cas', should be changed | used by @CasAuthenticationProvider@ to identify tokens it previously authenticated
+cas.artifactParameter | @'ticket'@ | the ticket login url parameter
+cas.serviceParameter | @'service'@ | the service login url parameter
+cas.filterProcessesUrl | '/j_spring_cas_security_check' | the URL that the filter intercepts for login 
+cas.proxyCallbackUrl | @null@, should be set | proxy callback url, e.g. 'http://localhost:8080/myapp/secure/receptor'
+cas.proxyReceptorUrl | @null@, should be set | proxy receptor url, e.g. '/secure/receptor'
+cas.useSingleSignout | @true@ | if @true@ a @org.jasig.cas.client.session.SingleSignOutFilter@ is registered in web.xml
+{table}
+
