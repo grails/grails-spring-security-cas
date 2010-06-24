@@ -16,4 +16,21 @@
 		<nature>org.eclipse.jdt.groovy.core.groovyNature</nature>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>sec-core-conf</name>
+			<type>2</type>
+			<locationURI>DOTGRAILS/1.3.2/projects/grails-spring-security-cas/plugins/spring-security-core-0.3.1/grails-app/conf</locationURI>
+		</link>
+		<link>
+			<name>sec-core-groovy</name>
+			<type>2</type>
+			<locationURI>DOTGRAILS/1.3.2/projects/grails-spring-security-cas/plugins/spring-security-core-0.3.1/src/groovy</locationURI>
+		</link>
+		<link>
+			<name>sec-core-java</name>
+			<type>2</type>
+			<locationURI>DOTGRAILS/1.3.2/projects/grails-spring-security-cas/plugins/spring-security-core-0.3.1/src/java</locationURI>
+		</link>
+	</linkedResources>
 </projectDescription>
