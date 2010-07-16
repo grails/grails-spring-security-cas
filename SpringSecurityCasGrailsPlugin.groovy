@@ -64,9 +64,6 @@ class SpringSecurityCasGrailsPlugin {
 			return
 		}
 
-		// TODO DOCUMENT
-		// change conf.logout.afterLogoutUrl to http://localhost:9090/cas/logout?url=http://localhost:8080/myapp
-
 		// add the filter right after the last context-param
 		def contextParam = xml.'context-param'
 		contextParam[contextParam.size() - 1] + {
