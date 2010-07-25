@@ -20,7 +20,7 @@ grails.project.dependency.resolution = {
 	}
 
 	dependencies {
-		runtime('org.springframework.security:org.springframework.security.cas:3.0.2.RELEASE') {
+		runtime('org.springframework.security:org.springframework.security.cas:3.0.3.RELEASE') {
 			excludes 'com.springsource.javax.servlet',
 			         'com.springsource.org.aopalliance',
 			         'com.springsource.org.apache.commons.logging',
