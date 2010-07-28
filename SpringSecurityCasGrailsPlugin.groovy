@@ -31,9 +31,9 @@ import org.springframework.security.core.userdetails.UserDetailsByNameServiceWra
 
 class SpringSecurityCasGrailsPlugin {
 
-	String version = '0.1'
-	String grailsVersion = '1.2.2 > *'
-	Map dependsOn = ['springSecurityCore': '0.2.1 > *']
+	String version = '1.0'
+	String grailsVersion = '1.2.3 > *'
+	Map dependsOn = ['springSecurityCore': '1.0 > *']
 	List pluginExcludes = [
 		'docs/**',
 		'src/docs/**',
