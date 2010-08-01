@@ -27,7 +27,6 @@ public class NullProxyGrantingTicketStorage implements ProxyGrantingTicketStorag
 	 * {@inheritDoc}
 	 * @see org.jasig.cas.client.proxy.ProxyGrantingTicketStorage#cleanUp()
 	 */
-	@Override
 	public void cleanUp() {
 		// do nothing	
 	}
@@ -36,7 +35,6 @@ public class NullProxyGrantingTicketStorage implements ProxyGrantingTicketStorag
 	 * {@inheritDoc}
 	 * @see org.jasig.cas.client.proxy.ProxyGrantingTicketStorage#retrieve(java.lang.String)
 	 */
-	@Override
 	public String retrieve(final String proxyGrantingTicketIou) {
 		return null;
 	}
@@ -46,7 +44,6 @@ public class NullProxyGrantingTicketStorage implements ProxyGrantingTicketStorag
 	 * @see org.jasig.cas.client.proxy.ProxyGrantingTicketStorage#save(
 	 * 	java.lang.String, java.lang.String)
 	 */
-	@Override
 	public void save(final String proxyGrantingTicketIou, final String proxyGrantingTicket) {
 		// do nothing	
 	}
