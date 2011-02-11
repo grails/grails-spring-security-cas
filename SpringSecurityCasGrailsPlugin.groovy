@@ -33,7 +33,7 @@ class SpringSecurityCasGrailsPlugin {
 
 	String version = '1.0.1'
 	String grailsVersion = '1.2.3 > *'
-	Map dependsOn = ['springSecurityCore': '1.0 > *']
+	Map dependsOn = [springSecurityCore: '1.0 > *']
 	List pluginExcludes = [
 		'docs/**',
 		'src/docs/**',
@@ -54,11 +54,15 @@ class SpringSecurityCasGrailsPlugin {
 			return
 		}
 
-		println 'Configuring Spring Security CAS ...'
 		SpringSecurityUtils.loadSecondaryConfig 'DefaultCasSecurityConfig'
-
 		// have to get again after overlaying DefaultCasSecurityConfig
 		conf = SpringSecurityUtils.securityConfig
+
+		if (!conf.cas.active) {
+			return
+		}
+
+		println 'Configuring Spring Security CAS ...'
 
 		if (!conf.cas.useSingleSignout) {
 			return
