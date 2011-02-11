@@ -20,17 +20,11 @@ grails.project.dependency.resolution = {
 	}
 
 	dependencies {
-		runtime('org.springframework.security:org.springframework.security.cas:3.0.3.RELEASE') {
-			excludes 'com.springsource.javax.servlet',
-			         'com.springsource.org.aopalliance',
-			         'com.springsource.org.apache.commons.logging',
-			         'com.springsource.org.apache.xmlcommons',
-			         'org.springframework.aop',
-			         'org.springframework.beans',
-			         'org.springframework.context',
-			         'org.springframework.core',
-			         'org.springframework.transaction',
-			         'org.springframework.web'
+		compile('org.springframework.security:org.springframework.security.cas:3.0.4.RELEASE') {
+			transitive = false
+		}
+		compile('org.jasig.cas:com.springsource.org.jasig.cas.client:3.1.8') {
+			transitive = false
 		}
 	}
 }
