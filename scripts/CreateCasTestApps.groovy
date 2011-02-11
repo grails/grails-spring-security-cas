@@ -95,7 +95,8 @@ private void createProjectFiles() {
 	         todir: "${testprojectRoot}/grails-app/controllers"
 
 	ant.copy file: "${projectfiles.path}/BootStrap.groovy",
-	         todir: "${testprojectRoot}/grails-app/conf"
+	         todir: "${testprojectRoot}/grails-app/conf",
+	         overwrite: true
 
 	new File("$testprojectRoot/grails-app/conf/Config.groovy").withWriterAppend {
 		it.writeLine ''
