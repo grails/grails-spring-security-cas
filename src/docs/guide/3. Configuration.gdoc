@@ -10,6 +10,7 @@ grails.plugins.springsecurity.cas.serverUrlPrefix =
 
 {table}
 *Name* | *Default* | *Meaning*
+cas.active | @true@ | whether the plugin is enabled or not (e.g. to disable per-environment)
 cas.serverUrlPrefix | @null@, must be set | the 'root' of all CAS server URLs, e.g. @https://cas-server/cas@
 cas.loginUri | @null@, must be set | the login URI, relative to @cas.serverUrlPrefix@, e.g. @/login@
 cas.sendRenew | @false@ | if true, ticket validation will only succeed if it was issued from a login form, but will fail if it was issued from a single sign-on session. Analagous to @IS_AUTHENTICATED_FULLY@ in Spring Security
