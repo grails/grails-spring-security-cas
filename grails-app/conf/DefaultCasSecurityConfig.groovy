@@ -14,7 +14,7 @@
  */
 security {
 	cas {
-		enabled = true
+		active = true
 		loginUri = null // must be set, e.g. '/login'
 		sendRenew = false
 		serviceUrl = null // must be set, e.g. 'http://localhost:8080/myapp/j_spring_cas_security_check'
