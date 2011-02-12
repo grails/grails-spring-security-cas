@@ -31,7 +31,7 @@ import org.springframework.security.core.userdetails.UserDetailsByNameServiceWra
 
 class SpringSecurityCasGrailsPlugin {
 
-	String version = '1.0.1'
+	String version = '1.0.2'
 	String grailsVersion = '1.2.3 > *'
 	Map dependsOn = [springSecurityCore: '1.0 > *']
 	List pluginExcludes = [
@@ -61,8 +61,6 @@ class SpringSecurityCasGrailsPlugin {
 		if (!conf.cas.active) {
 			return
 		}
-
-		println 'Configuring Spring Security CAS ...'
 
 		if (!conf.cas.useSingleSignout) {
 			return
@@ -101,6 +99,19 @@ class SpringSecurityCasGrailsPlugin {
 		if (!conf || !conf.active) {
 			return
 		}
+
+		if (application.warDeployed) {
+			// need to load secondary here since web.xml was already built, so
+			// doWithWebDescriptor isn't called when deployed as war
+ 
+			SpringSecurityUtils.loadSecondaryConfig 'DefaultCasSecurityConfig'
+			conf = SpringSecurityUtils.securityConfig
+			if (!conf.cas.active) {
+				return
+			}
+		}
+
+		println 'Configuring Spring Security CAS ...'
 
 		SpringSecurityUtils.registerProvider 'casAuthenticationProvider'
 		SpringSecurityUtils.registerFilter 'casAuthenticationFilter', SecurityFilterPosition.CAS_FILTER
