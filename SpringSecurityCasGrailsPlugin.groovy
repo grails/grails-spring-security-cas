@@ -106,11 +106,12 @@ class SpringSecurityCasGrailsPlugin {
  
 			SpringSecurityUtils.loadSecondaryConfig 'DefaultCasSecurityConfig'
 			conf = SpringSecurityUtils.securityConfig
-			if (!conf.cas.active) {
-				return
-			}
 		}
 
+        if (!conf.cas.active) {
+            return
+        }
+        
 		println 'Configuring Spring Security CAS ...'
 
 		SpringSecurityUtils.registerProvider 'casAuthenticationProvider'
