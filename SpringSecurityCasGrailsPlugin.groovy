@@ -48,7 +48,7 @@ class SpringSecurityCasGrailsPlugin {
 	String license = 'APACHE'
 	def organization = [name: 'SpringSource', url: 'http://www.springsource.org/']
 	def issueManagement = [system: 'JIRA', url: 'http://jira.grails.org/browse/GPSPRINGSECURITYCAS']
-	def scm = [url: 'https://github.com/grails-plugins/grails-spring-security-acl']
+	def scm = [url: 'https://github.com/grails-plugins/grails-spring-security-cas']
 
 	def doWithWebDescriptor = { xml ->
 
