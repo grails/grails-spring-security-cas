@@ -1,4 +1,4 @@
-/* Copyright 2006-2010 the original author or authors.
+/* Copyright 2006-2012 SpringSource.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,7 +33,6 @@ class SpringSecurityCasGrailsPlugin {
 
 	String version = '1.0.2'
 	String grailsVersion = '1.2.3 > *'
-	Map dependsOn = [springSecurityCore: '1.0 > *']
 	List pluginExcludes = [
 		'docs/**',
 		'src/docs/**',
@@ -103,16 +102,16 @@ class SpringSecurityCasGrailsPlugin {
 		if (application.warDeployed) {
 			// need to load secondary here since web.xml was already built, so
 			// doWithWebDescriptor isn't called when deployed as war
- 
+
 			SpringSecurityUtils.loadSecondaryConfig 'DefaultCasSecurityConfig'
 			conf = SpringSecurityUtils.securityConfig
 		}
 
-        if (!conf.cas.active) {
-            return
-        }
-        
-		println 'Configuring Spring Security CAS ...'
+		if (!conf.cas.active) {
+			return
+		}
+
+		println '\nConfiguring Spring Security CAS ...'
 
 		SpringSecurityUtils.registerProvider 'casAuthenticationProvider'
 		SpringSecurityUtils.registerFilter 'casAuthenticationFilter', SecurityFilterPosition.CAS_FILTER
@@ -165,5 +164,7 @@ class SpringSecurityCasGrailsPlugin {
 			statelessTicketCache = ref('casStatelessTicketCache')
 			key = conf.cas.key // 'grails-spring-security-cas'
 		}
+
+		println '... finished configuring Spring Security CAS\n'
 	}
 }

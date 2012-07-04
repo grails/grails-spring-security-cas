@@ -21,7 +21,7 @@ target(createCasTestApps: 'Creates CAS test apps') {
 	}
 
 	new ConfigSlurper().parse(configFile.text).each { name, config ->
-		echo "\nCreating app based on configuration $name: ${config.flatten()}\n"
+		printMessage "\nCreating app based on configuration $name: ${config.flatten()}\n"
 		appnumber = 0
 		2.times {
 			appnumber++
@@ -123,7 +123,7 @@ private void deleteDir(String path) {
 			deleteAll = true
 		}
 		else if (!'y'.equalsIgnoreCase(result)) {
-			ant.echo "\nNot deleting $path"
+			printMessage "\nNot deleting $path"
 			exit 1
 		}
 	}
@@ -132,7 +132,7 @@ private void deleteDir(String path) {
 }
 
 private void error(String message) {
-	ant.echo "\nERROR: $message"
+	errorMessage "\nERROR: $message"
 	exit 1
 }
 
@@ -144,5 +144,8 @@ private void callGrails(String grailsHome, String dir, String env, String action
 		extraArgs?.call()
 	}
 }
+
+printMessage = { String message -> event('StatusUpdate', [message]) }
+errorMessage = { String message -> event('StatusError', [message]) }
 
 setDefaultTarget 'createCasTestApps'

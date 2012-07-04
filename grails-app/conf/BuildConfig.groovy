@@ -1,30 +1,39 @@
-grails.project.class.dir = 'target/classes'
-grails.project.test.class.dir = 'target/test-classes'
-grails.project.test.reports.dir	= 'target/test-reports'
-grails.project.docs.output.dir = 'docs' // for backwards-compatibility, the docs are checked into gh-pages branch
+grails.project.work.dir = 'target'
+grails.project.source.level = 1.6
+grails.project.docs.output.dir = 'docs/manual' // for backwards-compatibility, the docs are checked into gh-pages branch
 
 grails.project.dependency.resolution = {
 
-	inherits('global') {
-		excludes 'commons-codec' // Grails ships with 1.3, need 1.4
-	}
-
+	inherits 'global'
 	log 'warn'
 
-	repositories {        
-		grailsPlugins()
-		grailsHome()
+	repositories {
 		grailsCentral()
-
-		ebr() // SpringSource  http://www.springsource.com/repository
+		mavenLocal()
+		mavenCentral()
 	}
 
 	dependencies {
-		compile('org.springframework.security:org.springframework.security.cas:3.0.4.RELEASE') {
-			transitive = false
+		compile('org.springframework.security:spring-security-cas-client:3.0.7.RELEASE') {
+			excludes 'spring-security-core', 'spring-security-web', 'servlet-api',
+			         'spring-tx', 'spring-test', 'cas-client-core', 'ehcache',
+			         'junit', 'mockito-core', 'jmock-junit4'
 		}
-		compile('org.jasig.cas:com.springsource.org.jasig.cas.client:3.1.8') {
-			transitive = false
+		compile('org.jasig.cas.client:cas-client-core:3.1.12') {
+			excludes 'xmlsec', 'opensaml', 'spring-beans', 'spring-test', 'spring-core',
+			         'spring-context', 'log4j', 'junit', 'commons-logging', 'servlet-api'
+		}
+	}
+
+	plugins {
+		compile ':spring-security-core:1.2.7.3'
+
+		build(':release:2.0.3', ':rest-client-builder:1.0.2') {
+			export = false
+		}
+
+		runtime(":hibernate:$grailsVersion") {
+			export = false
 		}
 	}
 }
