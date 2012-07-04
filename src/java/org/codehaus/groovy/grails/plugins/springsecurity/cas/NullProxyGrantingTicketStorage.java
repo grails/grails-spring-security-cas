@@ -1,4 +1,4 @@
-/* Copyright 2006-2010 the original author or authors.
+/* Copyright 2006-2012 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@ public class NullProxyGrantingTicketStorage implements ProxyGrantingTicketStorag
 	 * @see org.jasig.cas.client.proxy.ProxyGrantingTicketStorage#cleanUp()
 	 */
 	public void cleanUp() {
-		// do nothing	
+		// do nothing
 	}
 
 	/**
@@ -45,6 +45,6 @@ public class NullProxyGrantingTicketStorage implements ProxyGrantingTicketStorag
 	 * 	java.lang.String, java.lang.String)
 	 */
 	public void save(final String proxyGrantingTicketIou, final String proxyGrantingTicket) {
-		// do nothing	
+		// do nothing
 	}
 }
