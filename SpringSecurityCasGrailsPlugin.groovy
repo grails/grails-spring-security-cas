@@ -43,8 +43,12 @@ class SpringSecurityCasGrailsPlugin {
 	String authorEmail = 'beckwithb@vmware.com'
 	String title = 'Jasig CAS support for the Spring Security plugin.'
 	String description = 'Jasig CAS support for the Spring Security plugin.'
-
 	String documentation = 'http://grails.org/plugin/spring-security-cas'
+
+	String license = 'APACHE'
+	def organization = [name: 'SpringSource', url: 'http://www.springsource.org/']
+	def issueManagement = [system: 'JIRA', url: 'http://jira.grails.org/browse/GPSPRINGSECURITYCAS']
+	def scm = [url: 'https://github.com/grails-plugins/grails-spring-security-acl']
 
 	def doWithWebDescriptor = { xml ->
 
