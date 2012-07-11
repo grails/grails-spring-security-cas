@@ -31,7 +31,7 @@ import org.springframework.security.core.userdetails.UserDetailsByNameServiceWra
 
 class SpringSecurityCasGrailsPlugin {
 
-	String version = '1.0.3'
+	String version = '1.0.4'
 	String grailsVersion = '1.2.3 > *'
 	List pluginExcludes = [
 		'docs/**',
@@ -150,7 +150,7 @@ class SpringSecurityCasGrailsPlugin {
 			proxyReceptorUrl = conf.cas.proxyReceptorUrl
 		}
 
-		casProxyRetriever(Cas20ProxyRetriever, conf.cas.serverUrlPrefix)
+		casProxyRetriever(Cas20ProxyRetriever, conf.cas.serverUrlPrefix, conf.cas.serverUrlEncoding /*'UTF-8'*/)
 
 		casTicketValidator(Cas20ServiceTicketValidator, conf.cas.serverUrlPrefix) {
 			proxyRetriever = ref('casProxyRetriever')
