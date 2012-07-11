@@ -19,6 +19,7 @@ security {
 		sendRenew = false
 		serviceUrl = null // must be set, e.g. 'http://localhost:8080/myapp/j_spring_cas_security_check'
 		serverUrlPrefix = null // must be set, e.g. 'http://localhost:9090/cas'
+		serverUrlEncoding = 'UTF-8'
 		key = 'grails-spring-security-cas'
 		artifactParameter = 'ticket'
 		serviceParameter = 'service'

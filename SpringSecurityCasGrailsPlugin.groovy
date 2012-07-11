@@ -150,7 +150,7 @@ class SpringSecurityCasGrailsPlugin {
 			proxyReceptorUrl = conf.cas.proxyReceptorUrl
 		}
 
-		casProxyRetriever(Cas20ProxyRetriever, conf.cas.serverUrlPrefix)
+		casProxyRetriever(Cas20ProxyRetriever, conf.cas.serverUrlPrefix, conf.cas.serverUrlEncoding /*'UTF-8'*/)
 
 		casTicketValidator(Cas20ServiceTicketValidator, conf.cas.serverUrlPrefix) {
 			proxyRetriever = ref('casProxyRetriever')
