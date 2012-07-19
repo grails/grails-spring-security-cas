@@ -31,7 +31,7 @@ import org.springframework.security.core.userdetails.UserDetailsByNameServiceWra
 
 class SpringSecurityCasGrailsPlugin {
 
-	String version = '1.0.4'
+	String version = '1.0.5'
 	String grailsVersion = '1.2.3 > *'
 	List pluginExcludes = [
 		'docs/**',
