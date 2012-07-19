@@ -38,6 +38,7 @@ class SpringSecurityCasGrailsPlugin {
 		'src/docs/**',
 		'scripts/CreateCasTestApps.groovy'
 	]
+	List loadAfter = ['springSecurityCore']
 
 	String author = 'Burt Beckwith'
 	String authorEmail = 'beckwithb@vmware.com'
