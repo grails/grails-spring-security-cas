@@ -29,7 +29,7 @@ import org.springframework.security.cas.web.CasAuthenticationFilter
 
 class SpringSecurityCasGrailsPlugin {
 
-	String version = '1.0.5'
+	String version = '2.0-RC1'
 	String grailsVersion = '2.0 > *'
 	List pluginExcludes = [
 		'docs/**',
@@ -39,7 +39,7 @@ class SpringSecurityCasGrailsPlugin {
 	List loadAfter = ['springSecurityCore']
 
 	String author = 'Burt Beckwith'
-	String authorEmail = 'beckwithb@vmware.com'
+	String authorEmail = 'burt@burtbeckwith.com'
 	String title = 'Jasig CAS support for the Spring Security plugin.'
 	String description = 'Jasig CAS support for the Spring Security plugin.'
 	String documentation = 'http://grails-plugins.github.io/grails-spring-security-cas/'
