@@ -1,5 +1,4 @@
 grails.project.work.dir = 'target'
-grails.project.source.level = 1.6
 grails.project.docs.output.dir = 'docs/manual' // for backwards-compatibility, the docs are checked into gh-pages branch
 
 grails.project.dependency.resolution = {
@@ -11,28 +10,32 @@ grails.project.dependency.resolution = {
 		grailsCentral()
 		mavenLocal()
 		mavenCentral()
+		mavenRepo 'http://repo.spring.io/milestone' // TODO remove
 	}
 
 	dependencies {
-		compile('org.springframework.security:spring-security-cas-client:3.0.7.RELEASE') {
-			excludes 'spring-security-core', 'spring-security-web', 'servlet-api',
-			         'spring-tx', 'spring-test', 'cas-client-core', 'ehcache',
-			         'junit', 'mockito-core', 'jmock-junit4'
+		String springSecurityVersion = '3.2.0.RC1'
+
+		compile "org.springframework.security:spring-security-cas:$springSecurityVersion", {
+			excludes 'cas-client-core', 'commons-logging', 'ehcache', 'fest-assert', 'jcl-over-slf4j', 'junit',
+			         'logback-classic', 'mockito-core', 'spring-beans', 'spring-context', 'spring-core',
+			         'spring-security-core', 'spring-security-web', 'spring-test', 'spring-web', 'tomcat-servlet-api'
 		}
-		compile('org.jasig.cas.client:cas-client-core:3.1.12') {
-			excludes 'xmlsec', 'opensaml', 'spring-beans', 'spring-test', 'spring-core',
-			         'spring-context', 'log4j', 'junit', 'commons-logging', 'servlet-api'
+
+		compile 'org.jasig.cas.client:cas-client-core:3.2.1', {
+			excludes 'commons-codec', 'commons-logging', 'junit', 'log4j', 'opensaml', 'servlet-api',
+			         'spring-beans', 'spring-context', 'spring-core', 'spring-test', 'xmlsec'
 		}
 	}
 
 	plugins {
-		compile ':spring-security-core:1.2.7.3'
+		compile ':spring-security-core:2.0-RC2'
 
-		build(':release:2.0.3', ':rest-client-builder:1.0.2') {
+		compile ":hibernate:$grailsVersion", {
 			export = false
 		}
 
-		runtime(":hibernate:$grailsVersion") {
+		build ':release:2.2.1', ':rest-client-builder:1.0.3', {
 			export = false
 		}
 	}

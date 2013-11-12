@@ -13,26 +13,24 @@
  * limitations under the License.
  */
 
-import org.codehaus.groovy.grails.plugins.springsecurity.SecurityFilterPosition
-import org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils
+import grails.plugin.springsecurity.SecurityFilterPosition
+import grails.plugin.springsecurity.SpringSecurityUtils
 
 import org.jasig.cas.client.proxy.Cas20ProxyRetriever
 import org.jasig.cas.client.proxy.ProxyGrantingTicketStorageImpl
 import org.jasig.cas.client.session.SingleSignOutFilter
 import org.jasig.cas.client.session.SingleSignOutHttpSessionListener
 import org.jasig.cas.client.validation.Cas20ServiceTicketValidator
-
 import org.springframework.security.cas.ServiceProperties
 import org.springframework.security.cas.authentication.CasAuthenticationProvider
 import org.springframework.security.cas.authentication.NullStatelessTicketCache
 import org.springframework.security.cas.web.CasAuthenticationEntryPoint
 import org.springframework.security.cas.web.CasAuthenticationFilter
-import org.springframework.security.core.userdetails.UserDetailsByNameServiceWrapper
 
 class SpringSecurityCasGrailsPlugin {
 
 	String version = '1.0.5'
-	String grailsVersion = '1.2.3 > *'
+	String grailsVersion = '2.0 > *'
 	List pluginExcludes = [
 		'docs/**',
 		'src/docs/**',
@@ -116,7 +114,11 @@ class SpringSecurityCasGrailsPlugin {
 			return
 		}
 
-		println '\nConfiguring Spring Security CAS ...'
+		boolean printStatusMessages = (conf.printStatusMessages instanceof Boolean) ? conf.printStatusMessages : true
+
+		if (printStatusMessages) {
+			println '\nConfiguring Spring Security CAS ...'
+		}
 
 		SpringSecurityUtils.registerProvider 'casAuthenticationProvider'
 		SpringSecurityUtils.registerFilter 'casAuthenticationFilter', SecurityFilterPosition.CAS_FILTER
@@ -170,6 +172,8 @@ class SpringSecurityCasGrailsPlugin {
 			key = conf.cas.key // 'grails-spring-security-cas'
 		}
 
-		println '... finished configuring Spring Security CAS\n'
+		if (printStatusMessages) {
+			println '... finished configuring Spring Security CAS\n'
+		}
 	}
 }

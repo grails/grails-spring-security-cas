@@ -1,9 +1,9 @@
 There are a few configuration options for the CAS plugin.
 
 {note}
-All of these property overrides must be specified in @grails-app/conf/Config.groovy@ using the @grails.plugins.springsecurity@ suffix, for example
+All of these property overrides must be specified in @grails-app/conf/Config.groovy@ using the @grails.plugin.springsecurity@ suffix, for example
 {code}
-grails.plugins.springsecurity.cas.serverUrlPrefix =
+grails.plugin.springsecurity.cas.serverUrlPrefix =
      'https://cas-server/cas'
 {code}
 {note}
