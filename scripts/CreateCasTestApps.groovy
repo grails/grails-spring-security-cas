@@ -1,17 +1,16 @@
-includeTargets << grailsScript('_GrailsBootstrap')
+includeTargets << new File(springSecurityCorePluginDir, "scripts/_S2Common.groovy")
 
-serverUrlPrefix = 'http://localhost:9090/cas'
-proxyReceptorUrl = '/secure/receptor'
-appnumber = 0
 projectfiles = new File(basedir, 'webtest/projectFiles')
 grailsHome = null
 dotGrails = null
 projectDir = null
 appName = null
 pluginVersion = null
-pluginZip = null
 testprojectRoot = null
 deleteAll = false
+serverUrlPrefix = 'http://localhost:9090/cas'
+proxyReceptorUrl = '/secure/receptor'
+appnumber = 0
 
 target(createCasTestApps: 'Creates CAS test apps') {
 
@@ -41,7 +40,7 @@ private void init(String name, config) {
 		error "pluginVersion wasn't specified for config '$name'"
 	}
 
-	pluginZip = new File(basedir, "grails-spring-security-cas-${pluginVersion}.zip")
+	def pluginZip = new File(basedir, "grails-spring-security-cas-${pluginVersion}.zip")
 	if (!pluginZip.exists()) {
 		error "plugin $pluginZip.absolutePath not found"
 	}
@@ -54,7 +53,7 @@ private void init(String name, config) {
 	projectDir = config.projectDir
 	appName = 'spring-security-cas-test-' + name + '-' + appnumber
 	testprojectRoot = "$projectDir/$appName"
-	dotGrails = config.dotGrails
+	dotGrails = config.dotGrails + '/' + config.grailsVersion
 }
 
 private void createApp() {
@@ -64,30 +63,37 @@ private void createApp() {
 	deleteDir testprojectRoot
 	deleteDir "$dotGrails/projects/$appName"
 
-	callGrails(grailsHome, projectDir, 'dev', 'create-app') {
-		ant.arg value: appName
-	}
+	callGrails grailsHome, projectDir, 'dev', 'create-app', [appName]
 }
 
 private void installPlugin() {
 
-	// install plugins in local dir to make optional STS setup easier
-	new File("$testprojectRoot/grails-app/conf/BuildConfig.groovy").withWriterAppend {
-		it.writeLine 'grails.project.plugins.dir = "plugins"'
-	}
+	File buildConfig = new File(testprojectRoot, 'grails-app/conf/BuildConfig.groovy')
+	String contents = buildConfig.text
 
-	ant.mkdir dir: "${testprojectRoot}/plugins"
-	callGrails(grailsHome, testprojectRoot, 'dev', 'install-plugin') {
-		ant.arg value: pluginZip.absolutePath
-	}
+	contents = contents.replace('grails.project.class.dir = "target/classes"', "grails.project.work.dir = 'target'")
+	contents = contents.replace('grails.project.test.class.dir = "target/test-classes"', '')
+	contents = contents.replace('grails.project.test.reports.dir = "target/test-reports"', '')
+
+	contents = contents.replace('//mavenLocal()', 'mavenLocal()')
+	contents = contents.replace('repositories {', '''repositories {
+mavenRepo 'http://repo.spring.io/milestone' // TODO remove
+''')
+
+	contents = contents.replace('grails.project.fork', 'grails.project.forkDISABLED')
+
+	contents = contents.replace('plugins {', """plugins {
+runtime ":spring-security-cas:$pluginVersion"
+""")
+
+	buildConfig.withWriter { it.write contents }
+
+	callGrails grailsHome, testprojectRoot, 'dev', 'compile', null, true // can fail when installing the functional-test plugin
+	callGrails grailsHome, testprojectRoot, 'dev', 'compile'
 }
 
 private void runQuickstart() {
-	callGrails(grailsHome, testprojectRoot, 'dev', 's2-quickstart') {
-		ant.arg value: 'com.testcas'
-		ant.arg value: 'User'
-		ant.arg value: 'Role'
-	}
+	callGrails grailsHome, testprojectRoot, 'dev', 's2-quickstart', ['com.testcas', 'User', 'Role']
 }
 
 private void createProjectFiles() {
@@ -98,18 +104,24 @@ private void createProjectFiles() {
 	         todir: "${testprojectRoot}/grails-app/conf",
 	         overwrite: true
 
-	new File("$testprojectRoot/grails-app/conf/Config.groovy").withWriterAppend {
-		it.writeLine ''
-		it.writeLine "grails.plugins.springsecurity.cas.loginUri = '/login'"
-		it.writeLine "grails.plugins.springsecurity.cas.serviceUrl = 'http://localhost:808$appnumber/$appName/j_spring_cas_security_check'"
-		it.writeLine "grails.plugins.springsecurity.cas.serverUrlPrefix = '$serverUrlPrefix'"
-		it.writeLine "grails.plugins.springsecurity.cas.proxyCallbackUrl = 'http://localhost:808$appnumber/$appName/secure/receptor'"
-		it.writeLine "grails.plugins.springsecurity.cas.proxyReceptorUrl = '$proxyReceptorUrl'"
+	new File(testprojectRoot, 'grails-app/conf/Config.groovy').withWriterAppend {
+		it.write """
+grails.plugin.springsecurity.fii.rejectPublicInvocations = false
+grails.plugin.springsecurity.rejectIfNoRule = false
+grails.plugin.springsecurity.cas.loginUri = '/login'
+grails.plugin.springsecurity.cas.serviceUrl = 'http://localhost:808$appnumber/$appName/j_spring_cas_security_check'
+grails.plugin.springsecurity.cas.serverUrlPrefix = '$serverUrlPrefix'
+grails.plugin.springsecurity.cas.proxyCallbackUrl = 'http://localhost:808$appnumber/$appName/secure/receptor'
+grails.plugin.springsecurity.cas.proxyReceptorUrl = '$proxyReceptorUrl'
+"""
 	}
 
-	new File("$testprojectRoot/run.sh").withWriter {
-		it.writeLine 'grails clean'
-		it.writeLine "grails -Dserver.port=808$appnumber run-app"
+	new File(testprojectRoot, 'run.sh').withWriter {
+		it.write """\
+grails clean
+grails compile
+grails -Dserver.port=808$appnumber run-app
+"""
 	}
 	ant.chmod file: "$testprojectRoot/run.sh", perm: '+x'
 }
@@ -136,16 +148,28 @@ private void error(String message) {
 	exit 1
 }
 
-private void callGrails(String grailsHome, String dir, String env, String action, extraArgs = null) {
-	ant.exec(executable: "${grailsHome}/bin/grails", dir: dir, failonerror: 'true') {
+private void callGrails(String grailsHome, String dir, String env, String action, List extraArgs = null, boolean ignoreFailure = false) {
+
+	String resultproperty = 'exitCode' + System.currentTimeMillis()
+	String outputproperty = 'execOutput' + System.currentTimeMillis()
+
+	println "Running 'grails $env $action ${extraArgs?.join(' ') ?: ''}'"
+
+	ant.exec(executable: "${grailsHome}/bin/grails", dir: dir, failonerror: false,
+				resultproperty: resultproperty, outputproperty: outputproperty) {
 		ant.env key: 'GRAILS_HOME', value: grailsHome
 		ant.arg value: env
 		ant.arg value: action
-		extraArgs?.call()
+		extraArgs.each { ant.arg value: it }
+		ant.arg value: '--stacktrace'
+	}
+
+	println ant.project.getProperty(outputproperty)
+
+	int exitCode = ant.project.getProperty(resultproperty) as Integer
+	if (exitCode && !ignoreFailure) {
+		exit exitCode
 	}
 }
-
-printMessage = { String message -> event('StatusUpdate', [message]) }
-errorMessage = { String message -> event('StatusError', [message]) }
 
 setDefaultTarget 'createCasTestApps'

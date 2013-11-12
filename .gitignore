@@ -1,7 +1,7 @@
-*.zip
 *.log
 /target
-/plugin.xml
-/testapps.config.groovy
+grails-spring-security-cas-*.zip
+grails-spring-security-cas-*.zip.sha1
+plugin.xml
+.settings
 web-app
-.settings/

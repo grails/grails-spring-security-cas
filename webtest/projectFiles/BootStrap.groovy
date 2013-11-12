@@ -11,10 +11,8 @@ class BootStrap {
 		def roleAdmin = new Role(authority: 'ROLE_ADMIN').save()
 		def roleUser = new Role(authority: 'ROLE_USER').save()
 
-		def user = new User(username: 'user', enabled: true,
-				password: springSecurityService.encodePassword('user')).save()
-		def admin = new User(username: 'admin', enabled: true,
-				password: springSecurityService.encodePassword('admin')).save()
+		def user = new User(username: 'user', password: 'user').save()
+		def admin = new User(username: 'admin', password: 'admin').save()
 
 		UserRole.create user, roleUser
 		UserRole.create admin, roleUser

@@ -5,5 +5,6 @@ git clone git@github.com:grails-plugins/grails-spring-security-cas.git
 cd grails-spring-security-cas
 grails clean
 grails compile
-grails publish-plugin --noScm --stacktrace
-#grails publish-plugin --noScm --stacktrace --snapshot
+
+#grails publish-plugin --snapshot --stacktrace
+grails publish-plugin --stacktrace
