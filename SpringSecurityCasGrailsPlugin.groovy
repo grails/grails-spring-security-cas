@@ -42,7 +42,7 @@ class SpringSecurityCasGrailsPlugin {
 	String authorEmail = 'beckwithb@vmware.com'
 	String title = 'Jasig CAS support for the Spring Security plugin.'
 	String description = 'Jasig CAS support for the Spring Security plugin.'
-	String documentation = 'http://grails.org/plugin/spring-security-cas'
+	String documentation = 'http://grails-plugins.github.io/grails-spring-security-cas/'
 
 	String license = 'APACHE'
 	def organization = [name: 'SpringSource', url: 'http://www.springsource.org/']
