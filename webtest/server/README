@@ -1,19 +1,42 @@
-To test the plugin, run 'ant' to test and package, then 'grails create-cas-test-apps' to create two apps for each Grails configuration in testapps.config.groovy.
+To test the plugin, run 'grails maven-install' to package the plugin and copy to mavenLocal(), then 'grails create-cas-test-apps' to create two apps for each Grails configuration in testapps.config.groovy.
 
 testapps.config.groovy should look like
 
-	v12 {
-		pluginVersion = '1.0.2'
-		grailsHome = '/home/burt/dev/javalib/grails-1.2.3'
-		dotGrails = '/home/burt/.grails/1.2.3'
-		projectDir = '/home/burt/workspace/testapps/spring-security-test'
+	String version = '2.0-RC1'
+	String grailsHomeRoot = '/usr/local/javalib'
+	String dotGrailsCommon = '/home/burt/.grails'
+	String projectDirCommon = '/home/burt/workspace/testapps/spring-security-test'
+
+	v20 {
+		grailsVersion = '2.0.4'
+		pluginVersion = version
+		dotGrails = dotGrailsCommon
+		projectDir = projectDirCommon
+		grailsHome = grailsHomeRoot + '/grails-' + grailsVersion
 	}
 
-	v13 {
-		pluginVersion = '1.0.2'
-		grailsHome = '/home/burt/dev/javalib/grails-1.3.3'
-		dotGrails = '/home/burt/.grails/1.3.3'
-		projectDir = '/home/burt/workspace/testapps/spring-security-test'
+	v21 {
+		grailsVersion = '2.1.4' // 2.1.5 has a plugin i18n bug
+		pluginVersion = version
+		dotGrails = dotGrailsCommon
+		projectDir = projectDirCommon
+		grailsHome = grailsHomeRoot + '/grails-' + grailsVersion
+	}
+
+	v22 {
+		grailsVersion = '2.2.4'
+		pluginVersion = version
+		dotGrails = dotGrailsCommon
+		projectDir = projectDirCommon
+		grailsHome = grailsHomeRoot + '/grails-' + grailsVersion
+	}
+
+	v23 {
+		grailsVersion = '2.3.0'
+		pluginVersion = version
+		dotGrails = dotGrailsCommon
+		projectDir = projectDirCommon
+		grailsHome = grailsHomeRoot + '/grails-' + grailsVersion
 	}
 
 Each app has a run.sh script that starts up on a different port (8081 or 8082).
@@ -23,8 +46,7 @@ cd into this directory (webtest/server) and unpack server.tar.gz. This is a trim
 Run the CAS server with bin/startup.sh and the two test apps with their run.sh scripts.
 
 The test script is simple:
-	navigate to either app's secure controller (http://localhost:8081/spring-security-cas-test-v13-1/secure/admins or http://localhost:8082/spring-security-cas-test-v13-2/secure/admins) and login with admin/admin
+	navigate to either app's secure controller (http://localhost:8081/spring-security-cas-test-v20-1/secure/admins or http://localhost:8082/spring-security-cas-test-v20-2/secure/admins) and login with admin/admin
 	navigate to the other server's secure controller and you should already be authenticated
 
 The CAS server is configured to authenticate a user if the password matches the username; the test apps create an 'admin' user in BootStrap.
-
