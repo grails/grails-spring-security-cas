@@ -64,7 +64,9 @@ class SpringSecurityCasGrailsPlugin {
 			return
 		}
 
-		if (!conf.cas.useSingleSignout) {
+		if (conf.cas.useSingleSignout) {
+			conf.useSessionFixationPrevention = false
+		} else {
 			return
 		}
 
