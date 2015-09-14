@@ -60,14 +60,14 @@ dependencies {
 
     compile 'org.grails.plugins:spring-security-core:3.0.0.M1'
 
-    String springSecurityVersion = '3.2.7.RELEASE'
+    String springSecurityVersion = '3.2.8.RELEASE'
     compile "org.springframework.security:spring-security-cas:$springSecurityVersion", {
         ['cas-client-core', 'commons-logging', 'ehcache-core', 'fest-assert', 'jcl-over-slf4j', 'junit',
          'logback-classic', 'mockito-core', 'spring-beans', 'spring-context', 'spring-core',
          'spring-security-core', 'spring-security-web', 'spring-test', 'spring-web', 'tomcat-servlet-api'].each { exclude module: it }
     }
 
-    compile "org.jasig.cas.client:cas-client-core:3.3.3", {
+    compile "org.jasig.cas.client:cas-client-core:3.4.1", {
         ['commons-codec', 'commons-logging', 'junit', 'log4j', 'opensaml', 'servlet-api',
          'spring-beans', 'spring-context', 'spring-core', 'spring-test', 'xmlsec'].each { exclude module: it }
     }
