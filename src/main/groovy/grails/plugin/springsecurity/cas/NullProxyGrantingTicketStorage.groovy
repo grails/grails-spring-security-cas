@@ -1,4 +1,4 @@
-/* Copyright 2015 the original author or authors.
+/* Copyright 2006-2015 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,13 +12,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package grails.spring.security.cas
+package grails.plugin.springsecurity.cas
 
-import grails.boot.GrailsApp
-import grails.boot.config.GrailsAutoConfiguration
+import org.jasig.cas.client.proxy.ProxyGrantingTicketStorage
 
-class Application extends GrailsAutoConfiguration {
-    static void main(String[] args) {
-        GrailsApp.run(Application, args)
-    }
+import groovy.transform.CompileStatic
+
+/**
+ * No-op implementation.
+ *
+ * @author <a href='mailto:burt@burtbeckwith.com'>Burt Beckwith</a>
+ */
+@CompileStatic
+class NullProxyGrantingTicketStorage implements ProxyGrantingTicketStorage {
+	void cleanUp() {}
+	String retrieve(String proxyGrantingTicketIou) {}
+	void save(String proxyGrantingTicketIou, String proxyGrantingTicket) {}
 }
