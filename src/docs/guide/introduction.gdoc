@@ -1,4 +1,0 @@
-The CAS plugin adds [CAS|http://www.jasig.org/cas] single sign-on support to a Grails application that uses Spring Security. It depends on the [Spring Security Core plugin|http://grails.org/plugin/spring-security-core].
-
-Once you have configured a CAS server and have configured your Grails application(s) as clients, you can authenticate to any application that is a client of the CAS server and be automatically authenticated to all other clients.
-

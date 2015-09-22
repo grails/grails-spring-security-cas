@@ -1,2 +1,2 @@
-rm -rf build/docs
-grails gradle docsWithPdf --stacktrace
+rm -rf docs
+gradle --stacktrace docs
