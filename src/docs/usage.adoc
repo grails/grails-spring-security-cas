@@ -8,7 +8,19 @@ Configuring your CAS server is beyond the scope of this document. There are many
 
 http://www.jasig.org/cas[CAS] is a popular single sign-on implementation. It's open source and has an Apache-like license, and is easy to get started with but is also highly configurable. In addition it has clients written in Java, .Net, PHP, Perl, and other languages.
 
-There isn't much that you need to do in your application to be a CAS client. Just install this plugin, and configure any required parameters and whatever optional parameters you want in application.yml or application.groovy. These are described in detail in the <<configuration>> section but typically you only need to set these properties
+=== Installation
+
+There isn't much that you need to do in your application to be a CAS client. Add a dependency in `build.gradle` for this plugin:
+
+[source,java]
+----
+dependencies {
+   ...
+   compile 'org.grails.plugins:spring-security-cas:3.0.0.M1'
+}
+----
+
+then configure any required parameters and whatever optional parameters you want in application.yml or application.groovy. These are described in detail in the <<configuration>> section but typically you only need to set these properties:
 
 [source,java]
 ----
