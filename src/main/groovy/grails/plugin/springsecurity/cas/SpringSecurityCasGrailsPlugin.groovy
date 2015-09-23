@@ -55,7 +55,7 @@ class SpringSecurityCasGrailsPlugin extends Plugin {
 		}
 
 		SpringSecurityUtils.loadSecondaryConfig 'DefaultCasSecurityConfig'
-		// have to get again after overlaying DefaultAclSecurityConfig
+		// have to get again after overlaying DefaultCasSecurityConfig
 		conf = SpringSecurityUtils.securityConfig
 
 		if (!conf.cas.active) {
