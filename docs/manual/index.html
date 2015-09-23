@@ -520,7 +520,8 @@ table.CodeRay td.code>pre{padding:0}
 </li>
 <li><a href="#usage">2. Usage</a>
 <ul class="sectlevel2">
-<li><a href="#single-signout">2.1. Single Signout</a></li>
+<li><a href="#installation">2.1. Installation</a></li>
+<li><a href="#single-signout">2.2. Single Signout</a></li>
 </ul>
 </li>
 <li><a href="#configuration">3. Configuration</a></li>
@@ -646,8 +647,21 @@ table.CodeRay td.code>pre{padding:0}
 <div class="paragraph">
 <p><a href="http://www.jasig.org/cas">CAS</a> is a popular single sign-on implementation. It&#8217;s open source and has an Apache-like license, and is easy to get started with but is also highly configurable. In addition it has clients written in Java, .Net, PHP, Perl, and other languages.</p>
 </div>
+<div class="sect2">
+<h3 id="installation">2.1. Installation</h3>
 <div class="paragraph">
-<p>There isn&#8217;t much that you need to do in your application to be a CAS client. Just install this plugin, and configure any required parameters and whatever optional parameters you want in application.yml or application.groovy. These are described in detail in the <a href="#configuration">Configuration</a> section but typically you only need to set these properties</p>
+<p>There isn&#8217;t much that you need to do in your application to be a CAS client. Add a dependency in <code>build.gradle</code> for this plugin:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">dependencies {
+   ...
+   compile <span class="string"><span class="delimiter">'</span><span class="content">org.grails.plugins:spring-security-cas:3.0.0.M1</span><span class="delimiter">'</span></span>
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>then configure any required parameters and whatever optional parameters you want in application.yml or application.groovy. These are described in detail in the <a href="#configuration">Configuration</a> section but typically you only need to set these properties:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -662,8 +676,9 @@ table.CodeRay td.code>pre{padding:0}
             proxyReceptorUrl: /secure/receptor</code></pre>
 </div>
 </div>
+</div>
 <div class="sect2">
-<h3 id="single-signout">2.1. Single Signout</h3>
+<h3 id="single-signout">2.2. Single Signout</h3>
 <div class="paragraph">
 <p>Single signout is enabled by default and enables signing out for all CAS-managed applications with one logout. This works best in the plugin when combined with the <code>afterLogoutUrl</code> parameter, for example:</p>
 </div>
@@ -810,7 +825,7 @@ table.CodeRay td.code>pre{padding:0}
 <div id="footer">
 <div id="footer-text">
 Version 3.0.0.M1<br>
-Last updated 2015-09-23 17:10:52 EDT
+Last updated 2015-09-23 17:41:25 EDT
 </div>
 </div>
 </body>
