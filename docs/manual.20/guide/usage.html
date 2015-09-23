@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+    <title>2 Usage 2.0-RC1</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="stylesheet" href="../css/main.css" type="text/css" media="screen, print" title="Style" charset="utf-8"/>
+    <link rel="stylesheet" href="../css/pdf.css" type="text/css" media="print" title="PDF" charset="utf-8"/>
+    <script type="text/javascript">
+function addJsClass() {
+    var classes = document.body.className.split(" ");
+    classes.push("js");
+    document.body.className = classes.join(" ");
+}
+    </script>
+</head>
+
+<body class="body" onload="addJsClass();">
+<div id="navigation">
+    <ul>
+        <li>
+            <div id="nav-summary" onmouseover="toggleNavSummary(false)" onmouseout="toggleNavSummary(true)">
+                <a href="../guide/index.html" class="button">Table of contents</a>
+
+                <div id="nav-summary-childs" style="display:none;">
+                    
+                    <div class="toc-item" style="margin-left:0"><a href="../guide/introduction.html"><strong>1</strong><span>Introduction to the Spring Security CAS Plugin</span></a>
+                    </div>
+                    
+                    <div class="toc-item" style="margin-left:0"><a href="../guide/usage.html"><strong>2</strong><span>Usage</span></a>
+                    </div>
+                    
+                    <div class="toc-item" style="margin-left:0"><a href="../guide/configuration.html"><strong>3</strong><span>Configuration</span></a>
+                    </div>
+                    
+                </div>
+            </div>
+        </li>
+        <li class="separator selected">
+            <a id="ref-button" onclick="localToggle(); return false;" href="#">Quick Reference</a>
+        </li>
+    </ul>
+</div>
+<div id="header">
+    <div class="images clearfix">
+        
+        
+    </div>
+    <p>Jasig CAS support for the Spring Security plugin.</p>
+</div>
+
+
+<table id="colset" border="0" cellpadding="0" cellspacing="0">
+    <tr>
+        <td id="col1">
+            <div id="main" class="corner-all">
+
+                
+                    <div class="toc-item prev-left"><a href="../guide/introduction.html">&lt;&lt; <strong>1</strong><span>Introduction to the Spring Security CAS Plugin</span></a></div>
+                
+
+                <span id='toggle-col1' class="toggle">(<a href="#" onclick="localToggle(); return false;">Quick Reference</a>)</span>
+
+                
+                    <div class="toc-item next-right"><a href="../guide/configuration.html"><strong>3</strong><span>Configuration</span> >></a></div>
+                
+
+
+                <div class="project">
+                    <h1>2 Usage - Reference Documentation</h1>
+
+                    <p><strong>Authors:</strong> Burt Beckwith</p>
+
+                    <p><strong>Version:</strong> 2.0-RC1</p>
+
+                    
+                </div>
+
+                
+
+                
+
+<h1 id="usage">2 Usage</h1>
+<blockquote class="note">
+Configuring your CAS server is beyond the scope of this document. There are many different approaches and this will most likely be done by IT staff. It's assumed here that you already have a running CAS server.
+</blockquote><p class="paragraph"/><a href="http://www.jasig.org/cas" target="blank">CAS</a> is a popular single sign-on implementation. It's open source and has an Apache-like license, and is easy to get started with but is also highly configurable. In addition it has clients written in Java, .Net, PHP, Perl, and other languages.<p class="paragraph"/>There isn't much that you need to do in your application to be a CAS client. Just install this plugin, and configure any required parameters and whatever optional parameters you want in Config.groovy. These are described in detail in guide:3. Configuration but typically you only need to set these properties<p class="paragraph"/><div class="code"><pre>grails.plugin.springsecurity.cas. loginUri = '/login'
+grails.plugin.springsecurity.cas. serviceUrl = 'http://localhost:8080/your&#45;app&#45;name /j_spring_cas_security_check'
+grails.plugin.springsecurity.cas. serverUrlPrefix = 'https://your&#45;cas&#45;server/cas'
+grails.plugin.springsecurity.cas. proxyCallbackUrl = 'http://localhost:8080/your&#45;app&#45;name /secure/receptor'
+grails.plugin.springsecurity.cas. proxyReceptorUrl = '/secure/receptor'</pre></div><p class="paragraph"/>where "your-app-name" is the Grails application context (will be blank if deployed as the default context) and "your-cas-server" is the name of your CAS server.<p class="paragraph"/><h4>Single Signout</h4><p class="paragraph"/>Single signout is enabled by default and enables signing out for all CAS-managed applications with one logout. This works best in the plugin when combined with the <code>afterLogoutUrl</code> parameter, for example:<p class="paragraph"/><div class="code"><pre>grails.plugin.springsecurity.logout.afterLogoutUrl =
+     'https://your&#45;cas&#45;server/cas/logout? url=http://localhost:8080/your&#45;app&#45;name/'</pre></div><p class="paragraph"/>With this configuration, when a user logs out locally by navigating to <code>/logout/</code> they'll then be redirected to the CAS server's logout URL. This request includes a local URL to redirect back to afterwards. When the whole process is finished they'll be logged out locally and at the CAS server, so subsequent secure URLs at the local server or other CAS-managed servers will require a new login.<p class="paragraph"/>If you don't want the single signout filter registered, you can disable the feature:
+<div class="code"><pre>grails.plugin.springsecurity.cas.useSingleSignout = <span class="java&#45;keyword">false</span></pre></div>
+
+
+
+                <div style="clear:both;margin-top:15px;"></div>
+                
+                    <div class="toc-item prev-left"><a href="../guide/introduction.html">&lt;&lt; <strong>1</strong><span>Introduction to the Spring Security CAS Plugin</span></a></div>
+                
+                    <div class="toc-item next-right"><a href="../guide/configuration.html"><strong>3</strong><span>Configuration</span> >></a></div>
+                
+                <div style="clear:both"></div>
+            </div>
+        </td>
+        <td id="col2">
+            <div class="local clearfix">
+                <div class="local-title">
+                    <a href="../guide/index.html" target="mainFrame">Quick Reference</a>
+                    <span class="toggle">(<a href="#" onclick="localToggle(); return false;">hide</a>)</span>
+                </div>
+                <div class="menu">
+                    
+                </div>
+            </div>
+        </td>
+    </tr>
+</table>
+
+<div id="footer">
+    
+    
+</div>
+
+<script type="text/javascript" src="../js/docs.js"></script>
+
+
+<script type="text/javascript">
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-16219500-1']);
+	_gaq.push(['_trackPageview']);
+
+	(function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	})();
+</script>
+</body>
+</html>
