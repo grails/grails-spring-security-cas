@@ -30,7 +30,7 @@ grails:
       springsecurity:
          cas:
             loginUri: /login
-            serviceUrl: http://localhost:8080/j_spring_cas_security_check
+            serviceUrl: http://localhost:8080/login/cas
             serverUrlPrefix: https://your-cas-server/cas
             proxyCallbackUrl: http://localhost:8080/secure/receptor
             proxyReceptorUrl: /secure/receptor

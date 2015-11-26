@@ -110,7 +110,7 @@ class SpringSecurityCasGrailsPlugin extends Plugin {
 			authenticationDetailsSource = ref('authenticationDetailsSource')
 			serviceProperties = ref('casServiceProperties')
 			proxyGrantingTicketStorage = ref('casProxyGrantingTicketStorage')
-			filterProcessesUrl = conf.cas.filterProcessesUrl // '/j_spring_cas_security_check'
+			filterProcessesUrl = conf.cas.filterProcessesUrl // '/login/cas'
 			continueChainBeforeSuccessfulAuthentication = conf.apf.continueChainBeforeSuccessfulAuthentication // false
 			allowSessionCreation = conf.apf.allowSessionCreation // true
 			proxyReceptorUrl = conf.cas.proxyReceptorUrl

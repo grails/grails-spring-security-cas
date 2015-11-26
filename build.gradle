@@ -59,9 +59,9 @@ dependencies {
 
 	compile 'org.grails.plugins:spring-security-core:3.0.0.M1'
 
-	String springSecurityVersion = '3.2.8.RELEASE'
+	String springSecurityVersion = '4.0.3.RELEASE'
 	compile "org.springframework.security:spring-security-cas:$springSecurityVersion", {
-		['cas-client-core', 'commons-logging', 'ehcache-core', 'fest-assert', 'javax.servlet-api', 'jcl-over-slf4j',
+		['cas-client-core', 'commons-logging', 'ehcache', 'fest-assert', 'javax.servlet-api', 'jcl-over-slf4j',
 		 'junit', 'logback-classic', 'mockito-core', 'spring-beans', 'spring-context', 'spring-core',
 		 'spring-security-core', 'spring-security-web', 'spring-test', 'spring-web'].each { exclude module: it }
 	}

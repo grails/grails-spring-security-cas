@@ -81,7 +81,7 @@ grails:
             loginUri: /login
             serverUrlPrefix: http://localhost:9090/cas
             proxyReceptorUrl: /secure/receptor
-            serviceUrl: http://localhost:${server.port}/j_spring_cas_security_check
+            serviceUrl: http://localhost:${server.port}/login/cas
             proxyCallbackUrl: http://localhost:${server.port}/secure/receptor
          controllerAnnotations:
             staticRules:

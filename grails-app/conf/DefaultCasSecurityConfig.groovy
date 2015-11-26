@@ -17,13 +17,13 @@ security {
 		active = true
 		loginUri = null // must be set, e.g. '/login'
 		sendRenew = false
-		serviceUrl = null // must be set, e.g. 'http://localhost:8080/myapp/j_spring_cas_security_check'
+		serviceUrl = null // must be set, e.g. 'http://localhost:8080/myapp/login/cas'
 		serverUrlPrefix = null // must be set, e.g. 'http://localhost:9090/cas'
 		serverUrlEncoding = 'UTF-8'
 		key = 'grails-spring-security-cas'
 		artifactParameter = 'ticket'
 		serviceParameter = 'service'
-		filterProcessesUrl = '/j_spring_cas_security_check'
+		filterProcessesUrl = '/login/cas'
 		proxyCallbackUrl = null // should be set, e.g. 'http://localhost:8080/myapp/secure/receptor'
 		proxyReceptorUrl = null // should be set, e.g. '/secure/receptor'
 		useSingleSignout = true
