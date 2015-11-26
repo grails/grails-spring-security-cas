@@ -13,11 +13,12 @@ http://www.jasig.org/cas[CAS] is a popular single sign-on implementation. It's o
 There isn't much that you need to do in your application to be a CAS client. Add a dependency in `build.gradle` for this plugin:
 
 [source,java]
+[subs="attributes"]
 ----
 dependencies {
    ...
-   compile 'org.grails.plugins:spring-security-cas:3.0.0.M1'
-}
+   compile 'org.grails.plugins:spring-security-cas:{project-version}'
+   ...
 ----
 
 then configure any required parameters and whatever optional parameters you want in application.yml or application.groovy. These are described in detail in the <<configuration>> section but typically you only need to set these properties:
