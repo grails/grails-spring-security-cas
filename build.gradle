@@ -20,7 +20,7 @@ plugins {
 	id 'com.jfrog.bintray' version '1.2'
 }
 
-version '3.0.0.M1'
+version = file('version.txt').text.trim()
 group 'org.grails.plugins'
 
 apply plugin: 'maven-publish'
@@ -52,6 +52,7 @@ dependencyManagement {
 }
 
 dependencies {
+
 	provided 'javax.servlet:javax.servlet-api:3.1.0'
 	provided 'org.grails:grails-dependencies'
 	provided 'org.grails:grails-web-boot'
@@ -69,10 +70,6 @@ dependencies {
 		['commons-codec', 'javax.servlet-api', 'jcl-over-slf4j', 'junit', 'log4j', 'slf4j-api', 'slf4j-simple',
 		 'spring-beans', 'spring-context', 'spring-core', 'spring-test', 'xmlsec'].each { exclude module: it }
 	}
-
-	console 'org.grails:grails-console'
-
-	testCompile 'org.grails:grails-plugin-testing'
 }
 
 asciidoctor {
@@ -104,8 +101,4 @@ task docs(dependsOn: asciidoctor) << {
 	}
 
 	file('build/docs/ghpages.html') << file('src/docs/index.tmpl').text.replaceAll('@VERSION@', project.version)
-}
-
-task wrapper(type: Wrapper) {
-	gradleVersion = gradleWrapperVersion
 }

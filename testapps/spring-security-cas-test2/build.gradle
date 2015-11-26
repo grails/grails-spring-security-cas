@@ -55,15 +55,12 @@ dependencies {
 	compile 'org.springframework.boot:spring-boot-autoconfigure'
 	compile 'org.springframework.boot:spring-boot-starter-tomcat'
 
-	compile 'org.grails.plugins:spring-security-cas:3.0.0.M1'
+	String pluginVersion = file('../../version.txt').text.trim()
+	compile 'org.grails.plugins:spring-security-cas:' + pluginVersion
 
 	runtime 'org.grails.plugins:asset-pipeline'
 
 	testCompile 'org.grails:grails-plugin-testing'
 
 	console 'org.grails:grails-console'
-}
-
-task wrapper(type: Wrapper) {
-	gradleVersion = gradleWrapperVersion
 }
