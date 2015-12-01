@@ -23,27 +23,14 @@ import org.jasig.cas.client.proxy.ProxyGrantingTicketStorage;
  */
 public class NullProxyGrantingTicketStorage implements ProxyGrantingTicketStorage {
 
-	/**
-	 * {@inheritDoc}
-	 * @see org.jasig.cas.client.proxy.ProxyGrantingTicketStorage#cleanUp()
-	 */
 	public void cleanUp() {
 		// do nothing
 	}
 
-	/**
-	 * {@inheritDoc}
-	 * @see org.jasig.cas.client.proxy.ProxyGrantingTicketStorage#retrieve(java.lang.String)
-	 */
 	public String retrieve(final String proxyGrantingTicketIou) {
 		return null;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 * @see org.jasig.cas.client.proxy.ProxyGrantingTicketStorage#save(
-	 * 	java.lang.String, java.lang.String)
-	 */
 	public void save(final String proxyGrantingTicketIou, final String proxyGrantingTicket) {
 		// do nothing
 	}
