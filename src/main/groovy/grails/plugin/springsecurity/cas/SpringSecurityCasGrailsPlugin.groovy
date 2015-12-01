@@ -43,7 +43,7 @@ class SpringSecurityCasGrailsPlugin extends Plugin {
 	String license = 'APACHE'
 	List loadAfter = ['springSecurityCore']
 	def organization = [name: 'Grails', url: 'http://www.grails.org/']
-	def issueManagement = [url: 'http://jira.grails.org/browse/GPSPRINGSECURITYCAS']
+	def issueManagement = [url: 'https://github.com/grails-plugins/grails-spring-security-cas/issues']
 	def scm = [url: 'https://github.com/grails-plugins/grails-spring-security-cas']
 	def profiles = ['web']
 
