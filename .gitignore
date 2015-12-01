@@ -6,5 +6,7 @@
 grails-spring-security-cas-*.zip
 grails-spring-security-cas-*.zip.sha1
 plugin.xml
+.classpath
+.project
 .settings
 web-app
