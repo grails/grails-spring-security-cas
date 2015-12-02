@@ -68,6 +68,10 @@ class SpringSecurityCasGrailsPlugin {
 			return
 		}
 
+		// session fixation prevention breaks single signout because
+		// the service ticket is mapped to the session id which changes
+		conf.useSessionFixationPrevention = false
+
 		// add the filter right after the last context-param
 		def contextParam = xml.'context-param'
 		contextParam[contextParam.size() - 1] + {
