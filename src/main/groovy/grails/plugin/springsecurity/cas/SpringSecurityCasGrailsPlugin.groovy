@@ -69,6 +69,11 @@ class SpringSecurityCasGrailsPlugin extends Plugin {
 		}
 
 		if (conf.cas.useSingleSignout) {
+
+			// session fixation prevention breaks single signout because
+			// the service ticket is mapped to the session id which changes
+			conf.useSessionFixationPrevention = false
+
 			singleSignOutFilter(SingleSignOutFilter) {
 				ignoreInitConfiguration = true
 				casServerUrlPrefix = conf.cas.serverUrlPrefix
