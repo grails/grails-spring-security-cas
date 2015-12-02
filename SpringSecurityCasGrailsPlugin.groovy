@@ -105,13 +105,11 @@ class SpringSecurityCasGrailsPlugin {
 			return
 		}
 
-		if (application.warDeployed) {
-			// need to load secondary here since web.xml was already built, so
-			// doWithWebDescriptor isn't called when deployed as war
+		// need to load secondary here since web.xml was already built, so
+		// doWithWebDescriptor isn't called when deployed as war
 
-			SpringSecurityUtils.loadSecondaryConfig 'DefaultCasSecurityConfig'
-			conf = SpringSecurityUtils.securityConfig
-		}
+		SpringSecurityUtils.loadSecondaryConfig 'DefaultCasSecurityConfig'
+		conf = SpringSecurityUtils.securityConfig
 
 		if (!conf.cas.active) {
 			return
