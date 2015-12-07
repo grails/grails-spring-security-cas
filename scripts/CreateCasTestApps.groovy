@@ -76,9 +76,6 @@ private void installPlugin() {
 	contents = contents.replace('grails.project.test.reports.dir = "target/test-reports"', '')
 
 	contents = contents.replace('//mavenLocal()', 'mavenLocal()')
-	contents = contents.replace('repositories {', '''repositories {
-mavenRepo 'http://repo.spring.io/milestone' // TODO remove
-''')
 
 	contents = contents.replace('grails.project.fork', 'grails.project.forkDISABLED')
 
