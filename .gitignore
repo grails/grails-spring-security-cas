@@ -1,6 +1,9 @@
-*.iml
 *.log
-.gradle
-.idea
-.settings
-build
+/.gradle
+/.idea
+/build
+/grails-spring-security-cas-*.zip
+/grails-spring-security-cas-*.zip.sha1
+/plugin.xml
+/target
+/web-app
