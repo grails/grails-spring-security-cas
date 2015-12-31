@@ -1,4 +1,4 @@
-To test the plugin, first run 'grails install' to package the plugin and copy to mavenLocal(). Update the plugin version in each app's build.gradle.
+To test the plugin, first run 'grails install' to package the plugin and copy to mavenLocal().
 
 Unpack server.tar.gz. This is a trimmed-down Tomcat 8.0.26 configured to run on port 9090 and with no webapps. Copy the war into the webapps directory and rename to cas.war. It's a regular CAS war with one small tweak in WEB-INF/spring-configuration/ticketGrantingTicketCookieGenerator.xml to change p:cookieSecure to "false" to allow non-ssl access to simplify testing.
 

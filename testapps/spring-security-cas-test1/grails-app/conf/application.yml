@@ -65,43 +65,14 @@ grails:
             scriptlets: html
             taglib: none
             staticparts: none
-   plugin:
-      springsecurity:
-         userLookup:
-            userDomainClassName: 'com.test.User'
-            authorityJoinClassName: 'com.test.UserRole'
-         authority:
-            className: 'com.test.Role'
-         logout:
-            postOnly: false
-         fii:
-            rejectPublicInvocations: false
-         rejectIfNoRule: false
-         cas:
-            loginUri: /login
-            serverUrlPrefix: http://localhost:9090/cas
-            proxyReceptorUrl: /secure/receptor
-            serviceUrl: http://localhost:${server.port}/login/cas
-            proxyCallbackUrl: http://localhost:${server.port}/secure/receptor
-         controllerAnnotations:
-            staticRules:
-               /:                ['permitAll']
-               /error:           ['permitAll']
-               /index:           ['permitAll']
-               /index.gsp:       ['permitAll']
-               /shutdown:        ['permitAll']
-               /assets/**:       ['permitAll']
-               /**/js/**:        ['permitAll']
-               /**/css/**:       ['permitAll']
-               /**/images/**:    ['permitAll']
-               /**/favicon.ico:  ['permitAll']
 ---
 hibernate:
    cache:
       queries: false
-      use_second_level_cache: false
       use_query_cache: false
-      region.factory_class: 'org.hibernate.cache.ehcache.EhCacheRegionFactory'
+      use_second_level_cache: false
+   format_sql: true
+   use_sql_comments: true
 
 endpoints:
    jmx:
