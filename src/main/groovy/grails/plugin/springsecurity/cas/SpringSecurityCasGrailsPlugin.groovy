@@ -19,15 +19,21 @@ import org.jasig.cas.client.proxy.ProxyGrantingTicketStorageImpl
 import org.jasig.cas.client.session.SingleSignOutFilter
 import org.jasig.cas.client.session.SingleSignOutHttpSessionListener
 import org.jasig.cas.client.validation.Cas20ServiceTicketValidator
+import org.jasig.cas.client.validation.Saml11TicketValidator
+
 import org.springframework.boot.context.embedded.FilterRegistrationBean
 import org.springframework.boot.context.embedded.ServletListenerRegistrationBean
 import org.springframework.core.Ordered
+import org.springframework.security.core.userdetails.UserDetailsByNameServiceWrapper
 import org.springframework.security.cas.ServiceProperties
 import org.springframework.security.cas.authentication.CasAuthenticationProvider
 import org.springframework.security.cas.authentication.NullStatelessTicketCache
 import org.springframework.security.cas.web.CasAuthenticationEntryPoint
 import org.springframework.security.cas.web.CasAuthenticationFilter
 
+import grails.plugin.springsecurity.cas.userdetails.CasDomainUserMapperService
+import grails.plugin.springsecurity.cas.userdetails.NullUserDetailsService
+import grails.plugin.springsecurity.cas.userdetails.CasAuthenticationUserDetailsService
 import grails.plugin.springsecurity.SecurityFilterPosition
 import grails.plugin.springsecurity.SpringSecurityUtils
 import grails.plugins.Plugin
@@ -123,11 +129,33 @@ class SpringSecurityCasGrailsPlugin extends Plugin {
 
 		casProxyRetriever(Cas20ProxyRetriever, conf.cas.serverUrlPrefix, conf.cas.serverUrlEncoding /*'UTF-8'*/)
 
-		casTicketValidator(Cas20ServiceTicketValidator, conf.cas.serverUrlPrefix) {
-			proxyRetriever = ref('casProxyRetriever')
-			proxyGrantingTicketStorage = ref('casProxyGrantingTicketStorage')
-			proxyCallbackUrl = conf.cas.proxyCallbackUrl
-			renew = conf.cas.sendRenew // false
+		if(conf.cas.useSamlValidator){
+			casTicketValidator(Saml11TicketValidator, conf.cas.serverUrlPrefix) {
+		    	renew = conf.cas.sendRenew //false
+		    	tolerance = conf.cas.driftTolerance //120000 (ms)
+		  	}
+
+			domainUserMapperService(CasDomainUserMapperService)
+
+			// Replace userDetailsService with a dummy version - all userdetails will come from CAS
+			userDetailsService(NullUserDetailsService)
+
+			// Read user details from SAML attributes
+			authenticationUserDetailsService(CasAuthenticationUserDetailsService){
+				authorityAttribute = conf.cas.authorityAttribute
+				userMapper = ref('domainUserMapperService')
+			}
+
+		} else {
+
+			authenticationUserDetailsService(UserDetailsByNameServiceWrapper, ref('userDetailsService'))
+
+			casTicketValidator(Cas20ServiceTicketValidator, conf.cas.serverUrlPrefix) {
+				proxyRetriever = ref('casProxyRetriever')
+				proxyGrantingTicketStorage = ref('casProxyGrantingTicketStorage')
+				proxyCallbackUrl = conf.cas.proxyCallbackUrl
+				renew = conf.cas.sendRenew // false
+			}
 		}
 
 		casStatelessTicketCache(NullStatelessTicketCache)
