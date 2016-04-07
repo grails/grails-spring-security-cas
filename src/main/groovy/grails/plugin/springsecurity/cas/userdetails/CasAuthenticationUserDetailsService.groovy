@@ -15,12 +15,12 @@
 package grails.plugin.springsecurity.cas.userdetails
 
 import java.util.List
-import grails.plugin.springsecurity.userdetails.GrailsUser
 import org.jasig.cas.client.validation.Assertion
 import org.springframework.security.cas.userdetails.AbstractCasAssertionUserDetailsService
 import org.springframework.security.cas.userdetails.GrantedAuthorityFromAssertionAttributesUserDetailsService
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
+import grails.plugin.springsecurity.SpringSecurityUtils
 
 class CasAuthenticationUserDetailsService extends AbstractCasAssertionUserDetailsService {
 
@@ -56,15 +56,31 @@ class CasAuthenticationUserDetailsService extends AbstractCasAssertionUserDetail
         def casUser = grantedAuthoritiesService.loadUserDetails(casAssert)
 		def casAuthorities = casUser.authorities ?: NO_ROLES
 
-		// Prefix all authorities with 'ROLE_'
-		List Prefixed_Roles = []
-		casAuthorities.each() { authority ->
-			Prefixed_Roles.add(new SimpleGrantedAuthority(PREFIX + authority))
+		def configRolePrefix = SpringSecurityUtils.securityConfig.cas.rolePrefix
+
+		List roles = []
+
+		if (configRolePrefix) {
+			if (configRolePrefix instanceof String) {
+				casAuthorities.each() { authority ->
+					roles.add(new SimpleGrantedAuthority(configRolePrefix + authority))
+				}
+			} else {
+				casAuthorities.each() { authority ->
+					roles.add(new SimpleGrantedAuthority(PREFIX + authority))
+				}
+			}
+
+		} else {
+			casAuthorities.each() { authority ->
+				roles.add(new SimpleGrantedAuthority('' + authority))
+			}
 		}
+
 		def user = userMapper.findUserByUsername(casUser.username)
 
 		if(! user) {
-			user = userMapper.createUser(casUser.username, casAssert.principal, Prefixed_Roles)
+			user = userMapper.createUser(casUser.username, casAssert.principal, roles)
 		}
 
 		user
