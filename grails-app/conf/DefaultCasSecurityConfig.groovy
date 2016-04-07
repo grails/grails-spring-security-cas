@@ -30,5 +30,6 @@ security {
 		useSamlValidator = false
 		driftTolerance = 12000
 		authorityAttribute = 'roles'
+		rolePrefix = true	//if true uses default ROLE_ prefix, if false doesn't use prefix, if string uses declared prefix
 	}
 }
