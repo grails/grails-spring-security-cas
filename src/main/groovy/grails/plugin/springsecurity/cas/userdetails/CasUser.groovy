@@ -21,7 +21,8 @@ class CasUser extends GrailsUser {
 
 	final HashMap attributes
 
-	CasUser(String username,
+	CasUser(def id,
+			String username,
 			String password,
 			boolean enabled,
 			boolean accountNonExpired,
@@ -30,7 +31,7 @@ class CasUser extends GrailsUser {
 			Collection<GrantedAuthority> authorities,
 			HashMap attributes) {
 		super(username, password, enabled, accountNonExpired,
-			credentialsNonExpired, accountNonLocked, authorities, username)
+			credentialsNonExpired, accountNonLocked, authorities, id)
 		this.attributes = attributes
 	}
 

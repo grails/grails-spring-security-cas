@@ -40,8 +40,18 @@ class CasDomainUserMapperService implements DomainUserMapper{
 	}
 
 	def createUser(String username, AttributePrincipal principal, Collection<GrantedAuthority> authorities){
+		def id
+		if (principal.attributes?.id) {
+			try {
+				id = Long.parseLong(principal.attributes.id)
+			} catch (NumberFormatException e) {
+				id = principal.attributes.id
+			}
+		} else {
+			id = username
+		}
 
-		new CasUser(username, NON_EXISTENT_PASSWORD_VALUE, true, true, true,
+		new CasUser(id, username, NON_EXISTENT_PASSWORD_VALUE, true, true, true,
 			true, authorities, principal.attributes)
 	}
 }
