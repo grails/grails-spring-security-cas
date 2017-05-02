@@ -27,5 +27,9 @@ security {
 		proxyCallbackUrl = null // should be set, e.g. 'http://localhost:8080/myapp/secure/receptor'
 		proxyReceptorUrl = null // should be set, e.g. '/secure/receptor'
 		useSingleSignout = true
+		useSamlValidator = false
+		driftTolerance = 12000
+		authorityAttribute = 'roles'
+		rolePrefix = true	//if true uses default ROLE_ prefix, if false doesn't use prefix, if string uses declared prefix
 	}
 }

@@ -6,7 +6,7 @@
 Configuring your CAS server is beyond the scope of this document. There are many different approaches and this will most likely be done by IT staff. It's assumed here that you already have a running CAS server.
 ====
 
-http://www.jasig.org/cas[CAS] is a popular single sign-on implementation. It's open source and has an Apache-like license, and is easy to get started with but is also highly configurable. In addition it has clients written in Java, .Net, PHP, Perl, and other languages.
+https://www.apereo.org/projects/cas[CAS] is a popular single sign-on implementation. It's open source and has an Apache-like license, and is easy to get started with but is also highly configurable. In addition it has clients written in Java, .Net, PHP, Perl, and other languages.
 
 === Installation
 
@@ -60,4 +60,34 @@ grails:
       springsecurity:
          cas:
             useSingleSignout: false
+----
+
+=== SAML Attribute Release
+
+The CAS server can optionally release user attributes through http://jasig.github.io/cas/4.1.x/protocol/SAML-Protocol.html[SAML 1.1].  Instead of storing user details in the application's database, you can create a user record using these attributes. A user class (`grails.plugin.springsecurity.cas.userdetails.CasUser`) is included with the plugin.  To enable this feature:
+
+[source,java]
+----
+grails:
+   plugin:
+      springsecurity:
+         userLookup:
+            userDomainClassName: grails.plugin.springsecurity.cas.CasUser
+         cas:
+            useSamlValidator: true
+            driftTolerance: 1200
+            authorityAttribute: roles
+----
+
+If you want to use SAML attributes with your own user class, add a class that implements the `grails.plugin.springsecurity.cas.userdetails.DomainUserMapper` interface and registering that as the `domainUserMapperService` bean in resources.groovy:
+
+[source,java]
+----
+import com.mycompany.MyDomainUserMapperService
+
+beans = {
+   domainUserMapperService(MyDomainUserMapperService) {
+      // any required properties
+   }
+}
 ----

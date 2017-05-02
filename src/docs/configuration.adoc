@@ -33,4 +33,8 @@ grails:
 | cas.proxyCallbackUrl | `null`, should be set | proxy callback url, e.g. 'http://localhost:8080/secure/receptor'
 | cas.proxyReceptorUrl | `null`, should be set | proxy receptor url, e.g. '/secure/receptor'
 | cas.useSingleSignout | `true` | if `true` a `org.jasig.cas.client.session. SingleSignOutFilter` is registered
+| cas.useSamlValidator | `false` | if `true` use SAML for user attribute release
+| cas.driftTolerance | `1200`, should be set | When using SAML, allow the web server's time to differ from the CAS server's by this amount (in ms)
+| cas.authorityAttribute | `roles`, should be set | Attribute released through SAML that contains the list of Spring Security authorities
+| cas.rolePrefix | `true` | If true - 'ROLE_' prefix will be added to the role attribute coming from CAS. If false - no prefix will be added. If value is a String - this value will be used as prefix.
 |====================

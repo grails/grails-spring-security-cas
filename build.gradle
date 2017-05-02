@@ -30,6 +30,10 @@ dependencies {
 		exclude module: 'slf4j-api'
 	}
 
+	compile 'org.jasig.cas.client:cas-client-support-saml:3.4.1', {
+		exclude module: 'slf4j-api'
+	}
+
 	String springSecurityVersion = '4.0.3.RELEASE'
 	compile "org.springframework.security:spring-security-cas:$springSecurityVersion", {
 		['spring-beans', 'spring-context', 'spring-core', 'spring-security-core',
