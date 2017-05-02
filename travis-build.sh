@@ -10,7 +10,7 @@ if [[ -n $TRAVIS_TAG ]] || [[ $TRAVIS_BRANCH == 'master' && $TRAVIS_PULL_REQUEST
 
   echo "Publishing archives for branch $TRAVIS_BRANCH"
 
-  if [[ -n $TRAVIS_TAG ]]; then
+  # if [[ -n $TRAVIS_TAG ]]; then
 
     echo "Pushing build to Bintray for tag $TRAVIS_TAG"
 
@@ -18,7 +18,7 @@ if [[ -n $TRAVIS_TAG ]] || [[ $TRAVIS_BRANCH == 'master' && $TRAVIS_PULL_REQUEST
     
     ./publish-docs.sh
 
-  fi
+  # fi
 fi
 
 exit $EXIT_STATUS
