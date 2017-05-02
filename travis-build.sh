@@ -2,18 +2,23 @@
 
 set -e
 
-rm -rf build
+EXIT_STATUS=0
 
-./gradlew -q clean check install --stacktrace
+./gradlew clean check install --stacktrace || EXIT_STATUS=$?
 
-if [[ $TRAVIS_BRANCH == 'master' && $TRAVIS_PULL_REQUEST == 'false' ]]; then
+if [[ -n $TRAVIS_TAG ]] || [[ $TRAVIS_BRANCH == 'master' && $TRAVIS_PULL_REQUEST == 'false' ]]; then
 
-    if [[ -n $TRAVIS_TAG ]]; then
+  echo "Publishing archives for branch $TRAVIS_BRANCH"
 
-        ./gradlew bintrayUpload --stacktrace
+  if [[ -n $TRAVIS_TAG ]]; then
 
-        ./publish-docs.sh
+    echo "Pushing build to Bintray for tag $TRAVIS_TAG"
 
-    fi
+    ./gradlew bintrayUpload || EXIT_STATUS=$?
+    
+    ./publish-docs.sh
 
+  fi
 fi
+
+exit $EXIT_STATUS
