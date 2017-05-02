@@ -24,7 +24,7 @@ apply from: 'gradle/plugin.gradle'
 
 dependencies {
 
-	compile 'org.grails.plugins:spring-security-core:3.0.0'
+	compile 'org.grails.plugins:spring-security-core:3.1.2'
 
 	compile 'org.jasig.cas.client:cas-client-core:3.4.1', {
 		exclude module: 'slf4j-api'
