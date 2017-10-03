@@ -1,7 +1,7 @@
 rm -rf target/release
 mkdir target/release
 cd target/release
-git clone git@github.com:grails-plugins/grails-spring-security-cas.git
+git clone -b 2.x  git@github.com:grails-plugins/grails-spring-security-cas.git
 cd grails-spring-security-cas
 grails clean
 grails compile
