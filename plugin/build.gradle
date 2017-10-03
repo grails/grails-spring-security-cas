@@ -1,0 +1,45 @@
+buildscript {
+	ext {
+		grailsVersion = project.grailsVersion
+	}
+	repositories {
+		mavenLocal()
+		maven { url 'https://repo.grails.org/grails/core' }
+		jcenter()
+	}
+	dependencies {
+		classpath "org.grails:grails-gradle-plugin:$grailsVersion"
+		classpath "org.jfrog.buildinfo:build-info-extractor-gradle:latest.release"
+	}
+}
+
+version = projectVersion
+group = 'org.grails.plugins'
+
+apply plugin: "eclipse"
+apply plugin: "idea"
+apply plugin: "org.grails.grails-plugin"
+apply plugin: "org.grails.grails-plugin-publish"
+apply plugin: 'com.jfrog.artifactory'
+
+repositories {
+	mavenLocal()
+	maven { url "https://repo.grails.org/grails/core" }
+}
+
+dependencies {
+	provided "javax.servlet:javax.servlet-api:$javaxServletApiVersion"
+	provided "org.springframework.boot:spring-boot-starter-logging"
+	provided "org.grails:grails-web-boot"
+
+	profile "org.grails.profiles:web-plugin"
+	compile "org.grails.plugins:spring-security-core:$springSecurityCoreVersion"
+
+	compile "org.jasig.cas.client:cas-client-core:$casClientCoreVersion", {
+		exclude module: 'slf4j-api'
+	}
+	compile "org.springframework.security:spring-security-cas:$springSecurityVersion", {
+		['spring-beans', 'spring-context', 'spring-core', 'spring-security-core',
+		 'spring-security-web', 'spring-web'].each { exclude module: it }
+	}
+}
