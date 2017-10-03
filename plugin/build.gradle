@@ -43,3 +43,6 @@ dependencies {
 		 'spring-security-web', 'spring-web'].each { exclude module: it }
 	}
 }
+
+apply from: "${rootProject.projectDir}/gradle/grailsPublish.gradle"
+apply from: "${rootProject.projectDir}/gradle/artifactoryPublish.gradle"
