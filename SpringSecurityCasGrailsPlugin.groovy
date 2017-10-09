@@ -29,7 +29,7 @@ import org.springframework.security.cas.web.CasAuthenticationFilter
 
 class SpringSecurityCasGrailsPlugin {
 
-	String version = '2.0.1'
+	String version = '2.0.2'
 	String grailsVersion = '2.0 > *'
 	List pluginExcludes = [
 		'docs/**',
