@@ -22,9 +22,9 @@ grails.project.dependency.resolution = {
 			         'spring-security-core', 'spring-security-web', 'spring-test', 'spring-web', 'javax.servlet-api'
 		}
 
-		compile 'org.jasig.cas.client:cas-client-core:3.4.1', {
-			excludes 'commons-codec', 'javax.servlet-api', 'jcl-over-slf4j', 'junit', 'log4j', 'slf4j-api',
-			         'slf4j-simple', 'spring-beans', 'spring-context', 'spring-core', 'spring-test', 'xmlsec'
+		compile 'org.jasig.cas.client:cas-client-core:3.3.3', {
+			excludes 'commons-codec', 'commons-logging', 'junit', 'log4j', 'opensaml', 'servlet-api',
+					'spring-beans', 'spring-context', 'spring-core', 'spring-test', 'xmlsec'
 		}
 	}
 
