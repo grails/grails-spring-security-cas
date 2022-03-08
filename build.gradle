@@ -1,0 +1,6 @@
+project('spring-security-cas') {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+    }
+}

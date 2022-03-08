@@ -80,7 +80,6 @@ class SpringSecurityCasGrailsPlugin extends Plugin {
 
 			singleSignOutFilter(SingleSignOutFilter) {
 				ignoreInitConfiguration = true
-				casServerUrlPrefix = conf.cas.serverUrlPrefix
 			}
 
 			singleSignOutFilterRegistrationBean(FilterRegistrationBean) {

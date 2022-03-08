@@ -5,7 +5,7 @@ buildscript {
 	repositories {
 		mavenLocal()
 		maven { url 'https://repo.grails.org/grails/core' }
-		jcenter()
+		mavenCentral()
 	}
 	dependencies {
 		classpath "org.grails:grails-gradle-plugin:$grailsVersion"
@@ -19,8 +19,8 @@ group = 'org.grails.plugins'
 apply plugin: "eclipse"
 apply plugin: "idea"
 apply plugin: "org.grails.grails-plugin"
-apply plugin: "org.grails.grails-plugin-publish"
 apply plugin: 'com.jfrog.artifactory'
+apply plugin: 'maven-publish'
 
 repositories {
 	mavenLocal()
@@ -28,9 +28,9 @@ repositories {
 }
 
 dependencies {
-	provided "javax.servlet:javax.servlet-api:$javaxServletApiVersion"
-	provided "org.springframework.boot:spring-boot-starter-logging"
-	provided "org.grails:grails-web-boot"
+	compileOnly "javax.servlet:javax.servlet-api:$javaxServletApiVersion"
+	compileOnly "org.springframework.boot:spring-boot-starter-logging"
+	compileOnly "org.grails:grails-web-boot"
 
 	profile "org.grails.profiles:web-plugin"
 	compile "org.grails.plugins:spring-security-core:$springSecurityCoreVersion"
@@ -44,5 +44,15 @@ dependencies {
 	}
 }
 
-apply from: "${rootProject.projectDir}/gradle/grailsPublish.gradle"
-apply from: "${rootProject.projectDir}/gradle/artifactoryPublish.gradle"
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+        }
+    }
+    repositories {
+        mavenLocal()
+    }
+}
+
+// apply from: "${rootProject.projectDir}/gradle/artifactoryPublish.gradle"

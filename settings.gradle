@@ -1,6 +1,6 @@
 include 'docs'
 include 'plugin'
-include 'testapps/spring-security-cas-test1'
-include 'testapps/spring-security-cas-test2'
+include 'testapps:spring-security-cas-test1'
+include 'testapps:spring-security-cas-test2'
 rootProject.name = 'grails-spring-security-cas'
 findProject(':plugin').name = 'spring-security-cas'
