@@ -64,7 +64,7 @@ dependencies {
     testCompile "org.grails.plugins:geb"
     testCompile "org.grails:grails-web-testing-support"
     testRuntime "org.seleniumhq.selenium:selenium-htmlunit-driver:2.52.0"
-    testRuntime "net.sourceforge.htmlunit:htmlunit:2.59.0"
+    testRuntime "net.sourceforge.htmlunit:htmlunit:2.60.0"
 
     compile project(':spring-security-cas')
 }
