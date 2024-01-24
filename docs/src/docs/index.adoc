@@ -1,14 +1,15 @@
+:includedir: src/docs/
 = Spring Security CAS Plugin - Reference Documentation
-Burt Beckwith <burt@burtbeckwith.com>
-:revnumber: {project-version}
+Puneet Behl <behlp@unityfoundation.io>
+:revnumber: {projectVersion}
 :encoding: utf-8
 :lang: en
 :numbered:
 
-include::introduction.adoc[]
+include::{includedir}introduction.adoc[]
 
-include::usage.adoc[]
+include::{includedir}usage.adoc[]
 
-include::configuration.adoc[]
+include::{includedir}configuration.adoc[]
 
-include::history.adoc[]
+include::{includedir}history.adoc[]
