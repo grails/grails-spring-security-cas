@@ -3,14 +3,17 @@ buildscript {
         maven { url 'https://repo.grails.org/grails/core' }
     }
     dependencies {
-        classpath 'org.asciidoctor:asciidoctor-gradle-plugin:1.6.1'
-        classpath 'org.asciidoctor:asciidoctorj-epub3:2.0.1'
-        classpath 'org.asciidoctor:asciidoctorj-pdf:2.3.10'
+        classpath 'org.asciidoctor:asciidoctor-gradle-jvm:3.3.2'
+        classpath "org.asciidoctor:asciidoctor-gradle-jvm-epub:3.3.2"
+        classpath "org.asciidoctor:asciidoctor-gradle-jvm-pdf:3.3.2"
+        classpath "org.asciidoctor:asciidoctor-gradle-jvm-gems:3.3.2"
     }
 }
 
-import org.apache.tools.ant.taskdefs.condition.Os
-apply plugin: 'org.asciidoctor.convert'
+apply plugin: "org.asciidoctor.jvm.gems"
+apply plugin: 'org.asciidoctor.jvm.convert'
+apply plugin: "org.asciidoctor.jvm.pdf"
+apply plugin: "org.asciidoctor.jvm.epub"
 
 def asciidoctorAttributes = [
         copyright           : 'Apache License, Version 2.0',
@@ -18,14 +21,14 @@ def asciidoctorAttributes = [
         doctype             : 'book',
         encoding            : 'utf-8',
         icons               : 'font',
-        id                  : project.name + ':' + project.version,
+        id                  : project.name + ':' + projectVersion,
         idprefix            : '',
         idseparator         : '-',
         lang                : 'en',
         linkattrs           : true,
         numbered            : '',
         producer            : 'Asciidoctor',
-        revnumber           : project.version,
+        revnumber           : projectVersion,
         setanchors          : true,
         'source-highlighter' : 'prettify',
         toc                 : 'left',
@@ -35,28 +38,63 @@ def asciidoctorAttributes = [
         threeZeroXProjectVersion: project.threeZeroXProjectVersion
 ]
 
+repositories {
+    mavenCentral()
+    maven { url 'https://repo.grails.org/grails/core' }
+    ruby.gems()
+}
 
-import org.apache.tools.ant.taskdefs.condition.Os
-import org.asciidoctor.gradle.AsciidoctorTask
+dependencies {
+    asciidoctorGems 'rubygems:rouge:3.15.0'
+}
 
-tasks.withType(AsciidoctorTask) {
+
+asciidoctor {
+    sourceDir file('src/docs')
+    sources {
+        include 'index.adoc'
+    }
+    outputDir = new File(buildDir, 'docs')
     attributes asciidoctorAttributes
-    outputDir new File(buildDir, 'docs')
-    separateOutputDirs = false
+}
+
+asciidoctorPdf {
+    dependsOn asciidoctorGemsPrepare
     sourceDir = file('src/docs')
     sources {
         include 'index.adoc'
     }
+    outputDir = new File(buildDir, 'docs')
+
+    asciidoctorj {
+        requires 'rouge'
+        attributes asciidoctorAttributes
+    }
 }
 
+asciidoctorEpub {
+    dependsOn asciidoctorGemsPrepare
+    sourceDir = file('src/docs')
+    sources {
+        include 'index.adoc'
+    }
+    outputDir = new File(buildDir, 'docs')
 
-task asciidoc(type: AsciidoctorTask, description: 'Generates single-page HTML, PDF, and EPUB3') {
-    group 'documentation'
-    backends 'html5', 'pdf', 'epub3'
+    asciidoctorj {
+        requires 'rouge'
+        attributes asciidoctorAttributes
+    }
+
+    ebookFormats = ["EPUB3"]
 }
 
-task docs(dependsOn: [asciidoc]) {
-    group 'documentation'
+tasks.named("asciidoctor").configure {
+    dependsOn = ['asciidoctorPdf', 'asciidoctorEpub']
+}
+
+tasks.register("docs") {
+    group = "documentation"
+    dependsOn = ["asciidoctor"]
     doLast {
         File dir = new File(buildDir, 'docs')
         ['epub', 'pdf'].each { String ext ->
