@@ -55,6 +55,10 @@ repositories {
 	maven { url "https://repo.grails.org/grails/core" }
 }
 
+configurations {
+	documentation.extendsFrom compileClasspath
+}
+
 dependencies {
 	compileOnly "javax.servlet:javax.servlet-api:$javaxServletApiVersion"
 	compileOnly "org.springframework.boot:spring-boot-starter-logging"
@@ -70,6 +74,12 @@ dependencies {
 		['spring-beans', 'spring-context', 'spring-core', 'spring-security-core',
 		 'spring-security-web', 'spring-web'].each { exclude module: it }
 	}
+
+	documentation "com.github.javaparser:javaparser-core:3.25.8"
+}
+
+tasks.withType(Groovydoc).configureEach {
+	classpath = configurations.documentation
 }
 
 publishing {
