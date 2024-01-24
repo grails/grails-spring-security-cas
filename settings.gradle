@@ -37,6 +37,6 @@ include 'testapp-spring-security-cas-test2'
 
 project(':testapp-spring-security-cas-test2').projectDir = new File(settingsDir, 'testapps/testapp-spring-security-cas-test2')
 
-rootProject.name = 'grails-spring-security-cas'
+rootProject.name = 'spring-security-cas'
 
 findProject(':plugin').name = 'spring-security-cas'
