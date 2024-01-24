@@ -6,7 +6,7 @@ plugins {
 gradleEnterprise {
     server = 'https://ge.grails.org'
     buildScan {
-        publishAlways()
+        publishAlwaysIf(System.getenv('CI') == 'true')
         publishIfAuthenticated()
         uploadInBackground = System.getenv("CI") == null
         capture {
@@ -30,7 +30,13 @@ buildCache {
 
 include 'docs'
 include 'plugin'
-include 'testapps:spring-security-cas-test1'
-include 'testapps:spring-security-cas-test2'
+include 'testapp-spring-security-cas-test1'
+
+project(':testapp-spring-security-cas-test1').projectDir = new File(settingsDir, 'testapps/testapp-spring-security-cas-test1')
+include 'testapp-spring-security-cas-test2'
+
+project(':testapp-spring-security-cas-test2').projectDir = new File(settingsDir, 'testapps/testapp-spring-security-cas-test2')
+
 rootProject.name = 'grails-spring-security-cas'
+
 findProject(':plugin').name = 'spring-security-cas'
