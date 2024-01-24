@@ -42,7 +42,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: spring-security-cas-${{ steps.release_version.outputs.value }}.jar
-          path: build/distributions/spring-security-cas-${{ steps.release_version.outputs.value }}-plain.jar
+          path: plugin/build/libs/spring-security-cas-${{ steps.release_version.outputs.value }}-plain.jar
       - name: Generate secring file
         env:
           SECRING_FILE: ${{ secrets.SECRING_FILE }}
