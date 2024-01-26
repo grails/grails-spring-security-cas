@@ -16,6 +16,11 @@
     },
     {
       "matchPackagePatterns": [
+        "^org\\.asciidoctor"
+      ],
+      "groupName": "asciidoctor monorepo"
+    {
+      "matchPackagePatterns": [
         "^org\\.spockframework"
       ],
       "groupName": "spock framework monorepo"
